@@ -2,6 +2,11 @@ import os
 
 completed_tasks = []
 
+def countTasks():
+    with open(r"tasks.txt", 'r') as fr:
+        numTasks = len(fr.readlines())
+        return int(numTasks)
+
 def viewTask():
     print("To Do: \n")
     
@@ -13,10 +18,15 @@ def viewTask():
         print("\nERROR in viewing Tasks")
 
 def addTask():
+    numTasks = countTasks() + 1
+
     try:
         with open(r'tasks.txt', 'a') as fw:
             new_task = input("\nNew Task: ")
-            fw.write(new_task + "\n")
+            task = "[" + str(numTasks) + "]: " + new_task + "\n"
+            print(task)
+
+            fw.write(task)
 
             print("\nTask Added!")
     except:
