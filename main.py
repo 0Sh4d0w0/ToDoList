@@ -33,27 +33,20 @@ def addTask():
         print("\nERROR in adding Tasks")
 
 def completedTask():
+    viewTask()
+    
     try:
+        num = input("\nNumber of the task you want to mark as completed: ")
+
         with open('tasks.txt', 'r') as fr:
-            print(fr.read())
             lines = fr.readlines()
-       
-        if not lines:
-            print("File is empty!")
-            return
-
-        num = int(input("Wich task do you want to mark as completed"))
+            filtered = [line for line in lines if num not in line]
         
-        if num < 1 or num > len(lines):
-            print("Invalid line number!!")
-            return
-
         with open('tasks.txt', 'w') as fw:
-            for i,line in enumerate(lines, 1):
-                if i != num:
-                    fw.write(line)
-                
-        print("Task marked as completed!!")
+            for line in filtered:
+                fw.write(line)
+
+        print("Task Completed!!")
 
     except ValueError:
         print("Please enter a valid number!!")
@@ -62,22 +55,19 @@ def completedTask():
 
 
 def deleteTask():
+    viewTask()
+
     try:
+        num = input("\nNumber of the task you want to delete: ")
+
         with open('tasks.txt', 'r') as fr:
-            print(fr.read())
-
             lines = fr.readlines()
-
-        ptr = 1
-
-        number = int(input("Wich task do you want to delete??"))
+            filtered = [line for line in lines if num not in line]
 
         with open('tasks.txt', 'w') as fw:
-            for line in lines:
-                if ptr != number:
-                    fw.write(line)
-                ptr += 1
-
+            for line in filtered:
+                fw.write(line)
+        
         print("Task deleted!!")
 
     except:
